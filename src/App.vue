@@ -1,8 +1,46 @@
 <template>
   <div id="app">
-  <Col span="12" class="aa">
-            <DatePicker type="date" :options="options1" placeholder="Select date" style="width: 200px"></DatePicker>
+
+    <Button type="primary" @click="modal1 = true">Display dialog box</Button>
+    <div class="a">
+    <Modal
+        v-model="modal1"
+        title="Common Modal dialog box title"
+        @on-ok="ok"
+        @on-cancel="cancel">
+        <p>Content ofo dialog</p>
+        <p>Content of dialog</p>
+        <p>Content of dialog</p>
+    </Modal>
+    </div>
+
+ <!-- <Row>
+        <Col class="demo-spin-col" span="8">
+            <Spin fix>加载中...</Spin>
         </Col>
+        <Col class="demo-spin-col" span="8">
+            <Spin fix>
+                <Icon type="ios-loading" size=18 class="demo-spin-icon-load"></Icon>
+                <div>Loading</div>
+            </Spin>
+        </Col>
+        <Col class="demo-spin-col" span="8">
+            <Spin fix>
+                <div class="loader">
+                    <svg class="circular" viewBox="25 25 50 50">
+                        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="5" stroke-miterlimit="10"></circle>
+                    </svg>
+                </div>
+            </Spin>
+        </Col>
+    </Row> -->
+
+ <Button type="primary" @click="handleSpinCustom">自定义显示内容</Button>
+
+
+  <!-- <Col span="12" class="aa">
+            <DatePicker type="date" :options="options1" placeholder="Select date" style="width: 200px"></DatePicker>
+        </Col> -->
 
 
 
@@ -88,7 +126,7 @@ import Sub from './components/sub.vue'
 export default {
   data () {
     return {
-
+ modal1: false,
  options1: {
                     shortcuts: [
                         {
@@ -211,7 +249,31 @@ formValidate: {
 
   },
   methods: {
-
+      ok () {
+                this.$Message.info('Clicked ok');
+            },
+            cancel () {
+                this.$Message.info('Clicked cancel');
+            },
+handleSpinCustom () {
+                this.$Spin.show({
+                    render: (h) => {
+                        return h('div', [
+                            h('Icon', {
+                                'class': 'demo-spin-icon-load',
+                                props: {
+                                    type: 'ios-loading',
+                                    size: 18
+                                }
+                            }),
+                            h('div', 'Loading')
+                        ])
+                    }
+                });
+                setTimeout(() => {
+                    this.$Spin.hide();
+                }, 9000);
+            },
 
 handleSubmit (name) {
                 this.$refs[name].validate((valid) => {
@@ -249,4 +311,30 @@ handleSubmit (name) {
 .aa .ivu-date-picker .ivu-select-dropdown{
   display: block!important;
 }
+</style>
+
+
+<style>
+    .demo-spin-icon-load{
+        animation: ani-demo-spin 1s linear infinite;
+    }
+    @keyframes ani-demo-spin {
+        from { transform: rotate(0deg);}
+        50%  { transform: rotate(180deg);}
+        to   { transform: rotate(360deg);}
+    }
+    .demo-spin-col{
+        height: 100px;
+        position: relative;
+        border: 1px solid #eee;
+    }
+   .ivu-spin-fix{
+      /* background-color: pink!important; */
+   background: rgba(0, 0, 0,0.1)!important;
+    }
+   .a .ivu-modal{
+      top:0px!important;
+    }
+
+
 </style>
