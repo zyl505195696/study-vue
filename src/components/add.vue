@@ -1,6 +1,6 @@
 <template>
   <div>
-    111222233333
+    111222233333222
     <p>{{mynum.name}}</p>
 
     <form :v-model="mynum">
