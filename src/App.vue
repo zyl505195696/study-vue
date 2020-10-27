@@ -9,7 +9,7 @@
         @on-ok="ok"
         @on-cancel="cancel">
         <p>Content ofo dialog</p>
-        <p>Content of dialog</p>
+        <p>Content ofoss dialog</p>
         <p>Content of dialog</p>
     </Modal>
     </div>
